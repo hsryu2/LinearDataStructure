@@ -19,10 +19,20 @@ public:
 			return false;
 		}
 
-		rear = (rear + 1) % size;
-		data[rear] = value;
-		intStack.Push(value);
-		stringStack.Push("Enqueue");
+		if (!IsUndo)
+		{
+			rear = (rear + 1) % size;
+			data[rear] = value;
+			intStack.Push(value);
+			stringStack.Push("Enqueue");
+		}
+		else
+		{
+			rear = (rear + 1) % size;
+			data[rear] = value;
+			IsUndo = false;
+		}
+
 		return true;
 	}
 
@@ -32,11 +42,22 @@ public:
 		{
 			return false;
 		}
-		front = (front + 1) % size;
-		outValue = data[front];
-		data[front] = T(); // 초기화.
-		intStack.Push(outValue);
-		stringStack.Push("Dequeue");
+
+		if (!IsUndo)
+		{
+			front = (front + 1) % size;
+			outValue = data[front];
+			data[front] = T(); // 초기화.
+			intStack.Push(outValue);
+			stringStack.Push("Dequeue");
+		}
+		else
+		{
+			front = (front + 1) % size;
+			outValue = data[front];
+			data[front] = T(); // 초기화.
+			IsUndo = false;
+		}
 		return true;
 	}
 
@@ -77,7 +98,7 @@ public:
 		{
 			return false;
 		}
-
+		IsUndo = true;
 		if (stringStack.DataPeek() == "Enqueue")
 		{
 			stringStack.Pop();
@@ -90,7 +111,23 @@ public:
 			T tmp = intStack.Pop();
 			Enqueue(tmp);
 		}
-
+		return true;
+	}
+	
+	bool Redo()
+	{
+		if (stringStack.DataPeek() == "Enqueue")
+		{
+			stringStack.Pop();
+			intStack.Pop();
+			Dequeue(value);
+		}
+		else if (stringStack.DataPeek() == "Dequeue")
+		{
+			stringStack.Pop();
+			T tmp = intStack.Pop();
+			Enqueue(tmp);
+		}
 	}
 
 	void Print()
@@ -112,6 +149,7 @@ private:
 	int front = 0;
 	int rear = 0;
 	int value = 0;
+	bool IsUndo = false;
 	Stack<int> intStack;
 	Stack<std::string> stringStack;
 	T data[size + 1] = { };

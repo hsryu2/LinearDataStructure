@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 
-template <typename T, int size = 10>
+template <typename T, int size = 100>
 class Stack {
 	
 public:

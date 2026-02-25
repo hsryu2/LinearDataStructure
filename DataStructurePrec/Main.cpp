@@ -15,10 +15,14 @@ int main()
 	value = queue.Dequeue(value);
 	value = queue.Dequeue(value);
 	value = queue.Dequeue(value);
+
+	queue.Enqueue(6);
+	queue.Enqueue(7);
 	
 	std::cout << "Undo 하기 전 출력 \n";
 	queue.Print();
 
+	queue.Undo();
 	queue.Undo();
 
 	std::cout << "Undo 후 출력 \n";
