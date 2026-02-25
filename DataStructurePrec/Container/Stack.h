@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 
 template <typename T, int size = 10>
 class Stack {
@@ -56,6 +56,11 @@ public:
 	void clear()
 	{
 		top = 0;
+	}
+	
+	T DataPeek()
+	{
+		return data[top - 1];
 	}
 private:
 	
