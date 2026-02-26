@@ -28,8 +28,9 @@ public:
 		}
 		else
 		{
-			rear = (rear + 1) % size;
-			data[rear] = value;
+			// (이전 실행이 Dequeue) undo 실행시
+			front = (front - 1) % size;
+			data[front] = T(); // 초기화.
 			IsUndo = false;
 		}
 
@@ -53,10 +54,11 @@ public:
 		}
 		else
 		{
-			front = (front + 1) % size;
-			outValue = data[front];
-			data[front] = T(); // 초기화.
+			// (이전 실행이 Enqueue) undo 실행시
+			rear = (rear - 1) % size;
+			data[rear] = value;
 			IsUndo = false;
+
 		}
 		return true;
 	}
@@ -116,18 +118,25 @@ public:
 	
 	bool Redo()
 	{
-		if (stringStack.DataPeek() == "Enqueue")
+		if (stringStack.count() == 0)
 		{
-			stringStack.Pop();
-			intStack.Pop();
-			Dequeue(value);
+			return false;
 		}
-		else if (stringStack.DataPeek() == "Dequeue")
+
+		if (stringStack.DataPeek() == "Enqueue")
 		{
 			stringStack.Pop();
 			T tmp = intStack.Pop();
 			Enqueue(tmp);
 		}
+		else if (stringStack.DataPeek() == "Dequeue")
+		{
+			stringStack.Pop();
+			intStack.Pop();
+			T tmp;
+			Dequeue(tmp);
+		}
+		return true;
 	}
 
 	void Print()

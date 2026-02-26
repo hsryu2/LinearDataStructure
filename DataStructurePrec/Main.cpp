@@ -28,6 +28,15 @@ int main()
 	std::cout << "Undo 후 출력 \n";
 	queue.Print();
 
+
+	queue.Enqueue(6);
+	std::cout << "Redo 하기 전 출력 \n";
+	queue.Print();
+
+	queue.Redo();
+	std::cout << "Redo 후 출력 \n";
+	queue.Print();
+
 	std::cin.get();
 
 }
