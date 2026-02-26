@@ -5,41 +5,48 @@
 
 int main()
 {
-	Queue<int> queue;
-	queue.Enqueue(10);
-	queue.Enqueue(5);
-	queue.Enqueue(6);
-	queue.Enqueue(7);
+	std::string str; 
+	Queue<std::string> queue;
+	std::string value;
 
-	int value;
-	value = queue.Dequeue(value);
-	value = queue.Dequeue(value);
-	value = queue.Dequeue(value);
+	std::cout << "문자 입력시 큐에 삽입.\n";
+	std::cout << "de 입력시 dequeue.\n";
+	std::cout << "undo, redo 입력 가능. \n";
+	std::cout << "q 입력시 프로그램 종료 \n";
 
-	queue.Enqueue(6);
-	queue.Enqueue(7);
-	
-	std::cout << "Undo 하기 전 출력 \n";
-	queue.Print();
+	while (str != "q")
+	{
+		
+		std::cout << "입력해주세요 : ";
+		std::cin >> str;
 
-	queue.Undo();
-	queue.Undo();
+		if (str == "undo")
+		{
+			queue.Undo();
+		}
+		else if (str == "redo")
+		{
+			queue.Redo();
+		}
 
-	std::cout << "Undo 후 출력 \n";
-	queue.Print();
-
-
-	queue.Enqueue(6);
-	std::cout << "Redo 하기 전 출력 \n";
-	queue.Print();
-
-	queue.Redo();
-
-	queue.Dequeue(value);
-	queue.Redo();
-	std::cout << "Redo 후 출력 \n";
-	queue.Print();
-
-	std::cin.get();
+		else if (str == "show")
+		{
+			std::cout << "undo, Redo 스택 목록\n";
+			queue.strStack.show();
+			queue.stringStack.show();
+		}
+		else if (str == "de")
+		{
+			queue.Dequeue(value);
+		}
+		else if (str == "print")
+		{
+			queue.Print();
+		}
+		else
+		{
+			queue.Enqueue(str);
+		}
+	}
 
 }

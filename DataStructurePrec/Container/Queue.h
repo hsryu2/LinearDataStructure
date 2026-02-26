@@ -23,13 +23,13 @@ public:
 		{
 			rear = (rear + 1) % size;
 			data[rear] = value;
-			intStack.Push(value);
+			strStack.Push(value);
 			stringStack.Push("Enqueue");
 		}
 		else
 		{
 			// (이전 실행이 Dequeue) undo 실행시
-			data[front] = T(); // 초기화.
+			data[front] = value; // 초기화.
 			front = ((front - 1) % size);
 			IsUndo = false;
 		}
@@ -49,7 +49,7 @@ public:
 			front = (front + 1) % size;
 			outValue = data[front];
 			data[front] = T(); // 초기화.
-			intStack.Push(outValue);
+			strStack.Push(outValue);
 			stringStack.Push("Dequeue");
 		}
 		else
@@ -105,13 +105,13 @@ public:
 		if (stringStack.DataPeek() == "Enqueue")
 		{
 			stringStack.Pop();
-			intStack.Pop();
+			strStack.Pop();
 			Dequeue(value);
 		}
 		else if (stringStack.DataPeek() == "Dequeue")
 		{
 			stringStack.Pop();
-			T tmp = intStack.Pop();
+			T tmp = strStack.Pop();
 			Enqueue(tmp);
 		}
 		return true;
@@ -126,14 +126,12 @@ public:
 
 		if (stringStack.DataPeek() == "Enqueue")
 		{
-			stringStack.Pop();
-			T tmp = intStack.Pop();
+			T tmp = strStack.DataPeek();
 			Enqueue(tmp);
 		}
 		else if (stringStack.DataPeek() == "Dequeue")
 		{
-			stringStack.Pop();
-			intStack.Pop();
+			strStack.DataPeek();
 			T tmp;
 			Dequeue(tmp);
 		}
@@ -155,13 +153,15 @@ public:
 		// 마무리.
 		std::cout << "\n";
 	}
+public:
+	Stack<std::string> strStack;
+	Stack<std::string> stringStack;
 private:
 	int front = 0;
 	int rear = 0;
-	int value = 0;
+	T value = " ";
 	bool IsUndo = false;
-	Stack<int> intStack;
-	Stack<std::string> stringStack;
+
 	T data[size + 1] = { };
 
 };

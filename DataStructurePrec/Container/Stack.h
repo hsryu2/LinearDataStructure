@@ -62,6 +62,20 @@ public:
 	{
 		return data[top - 1];
 	}
+	void show()
+	{
+		for (int i = 0; i < top; i++)
+		{
+			if (i == top - 1)
+			{
+				std::cout << data[i];
+				break;
+			}
+			std::cout << data[i] << ", ";
+		}
+		std::cout << "\n";
+	}
+
 private:
 	
 	int top = 0;
