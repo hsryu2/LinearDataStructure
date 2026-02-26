@@ -34,6 +34,9 @@ int main()
 	queue.Print();
 
 	queue.Redo();
+
+	queue.Dequeue(value);
+	queue.Redo();
 	std::cout << "Redo ÈÄ Ãâ·Â \n";
 	queue.Print();
 

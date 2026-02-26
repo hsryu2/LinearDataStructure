@@ -29,8 +29,8 @@ public:
 		else
 		{
 			// (이전 실행이 Dequeue) undo 실행시
-			front = (front - 1) % size;
 			data[front] = T(); // 초기화.
+			front = ((front - 1) % size);
 			IsUndo = false;
 		}
 
@@ -55,8 +55,9 @@ public:
 		else
 		{
 			// (이전 실행이 Enqueue) undo 실행시
-			rear = (rear - 1) % size;
+	
 			data[rear] = value;
+			rear = ((rear - 1) % size);
 			IsUndo = false;
 
 		}
