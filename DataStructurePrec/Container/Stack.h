@@ -58,6 +58,7 @@ public:
 		top = 0;
 	}
 	
+	// 스택 값 확인.
 	T DataPeek()
 	{
 		return data[top - 1];

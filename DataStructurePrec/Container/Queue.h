@@ -29,6 +29,8 @@ public:
 		else
 		{
 			// (이전 실행이 Dequeue) undo 실행시
+			// 이전에 있던 데이터를 현재 front에 넣고
+			// front를 하나 이전 시점으로 옮겨줘야한다.
 			data[front] = value; // 초기화.
 			front = ((front - 1) % size);
 			IsUndo = false;
@@ -55,7 +57,8 @@ public:
 		else
 		{
 			// (이전 실행이 Enqueue) undo 실행시
-	
+			// 이전에 있던 데이터를 초기화 시켜주고, 
+			// front를 하나 이전 시점으로 옮겨줘야한다.
 			data[rear] = value;
 			rear = ((rear - 1) % size);
 			IsUndo = false;
@@ -154,12 +157,18 @@ public:
 		std::cout << "\n";
 	}
 public:
+	// 데이터 정보를 넣을 strStack
+	// enqueue, dequeue를 구분 할 stringStack
 	Stack<std::string> strStack;
 	Stack<std::string> stringStack;
 private:
 	int front = 0;
 	int rear = 0;
+
+	// 초기화 전용 값.
 	T value = " ";
+
+	// undo를 호출했을때 구분지을 변수.
 	bool IsUndo = false;
 
 	T data[size + 1] = { };
